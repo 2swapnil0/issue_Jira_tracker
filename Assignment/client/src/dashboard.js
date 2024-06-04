@@ -16,7 +16,7 @@ const IssuesList = () => {
   useEffect(() => {
     const fetchIssues = async () => {
       try {
-        const response = await axios.get('https://issue-jira-tracker.vercel.app');
+        const response = await axios.get('https://issue-jira-tracker.vercel.app/');
         setIssues(response.data);
         setLoading(false);
       } catch (error) {

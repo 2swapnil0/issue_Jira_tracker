@@ -7,9 +7,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.use("/",(req,res)=>{
+  res.send(Server is running."")
+})
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+app.listen(5000,console.log(`Server is running on port 5000`));
 
 const { JIRA_BASE_URL, JIRA_API_TOKEN, JIRA_PROJECT_KEY } = process.env;
 

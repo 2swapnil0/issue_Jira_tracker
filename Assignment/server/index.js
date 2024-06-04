@@ -35,7 +35,7 @@ app.get('/issues', async (req, res) => {
     res.json(issues);
   } catch (error) {
     console.error('Error fetching issues:', error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
+    // res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

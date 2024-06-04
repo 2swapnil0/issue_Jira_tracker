@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
-import cors from 'cors'; // Import the cors middleware
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
@@ -14,7 +14,10 @@ const headers = {
   'Accept': 'application/json'
 };
 
-app.use(cors()); // Enable CORS for all routes
+app.use(cors());
+app.get('/', (req, res) => {
+  res.send('API is running');
+});
 
 app.get('/issues', async (req, res) => {
   try {
@@ -31,6 +34,10 @@ app.get('/issues', async (req, res) => {
     console.error('Error fetching issues:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+});
+
+app.get('/', (req, res) => {
+  res.send('API is running');
 });
 
 app.listen(PORT, () => {

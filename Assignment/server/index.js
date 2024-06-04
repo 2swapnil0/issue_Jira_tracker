@@ -15,9 +15,7 @@ const headers = {
 };
 
 app.use(cors());
-app.get('/', (req, res) => {
-  res.send('API is running');
-});
+
 
 app.get('/issues', async (req, res) => {
   try {

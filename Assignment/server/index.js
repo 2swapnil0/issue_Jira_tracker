@@ -1,23 +1,27 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
-import cors from 'cors';
+import cors from 'cors'; // Import the cors middleware
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const JIRA_BASE_URL = 'https://swapnilmhatre.atlassian.net/';
-const JIRA_API_TOKEN = 'ATATT3xFfGF0urGDkkqWbjuuIHlLuVxxcc_S_NS9DILFSa9aj94QuYdbpAGqNWz_TuoeYx59knlCoibZR5gEz3bXLgnh2_iIgHYakcei3MAJ86ZFOmPX7kVzFhCosvu9s2wjIQfavDCDLRQLVrJGQsaL1EZ2mryP_InZjaj5oDDacSSUX0VF_0A=972A81F5';
-const JIRA_PROJECT_KEY = 'KAN';
+const { JIRA_BASE_URL, JIRA_API_TOKEN, JIRA_PROJECT_KEY } = process.env;
 
 const headers = {
   'Authorization': `Basic ${Buffer.from(`swapnilmhatre671@gmail.com:${JIRA_API_TOKEN}`).toString('base64')}`,
   'Accept': 'application/json'
 };
 
-app.use(cors());
+app.use(cors()); // Enable CORS for all routes
 
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+app.get('/', (req, res) => {
+  res.send('API is running');
+});
 app.get('/issues', async (req, res) => {
   try {
     const response = await axios.get(`${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`, { headers });
@@ -35,12 +39,4 @@ app.get('/issues', async (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
-  res.send('API is running');
-});
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
-export default app; // Export app for Vercel

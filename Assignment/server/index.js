@@ -1,14 +1,13 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import axios from 'axios';
 import cors from 'cors';
 
+dotenv.config();
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 5000;
 
-// JIRA Configuration
-const JIRA_BASE_URL = 'https://swapnilmhatre.atlassian.net/';
-const JIRA_API_TOKEN = 'ATATT3xFfGF0urGDkkqWbjuuIHlLuVxxcc_S_NS9DILFSa9aj94QuYdbpAGqNWz_TuoeYx59knlCoibZR5gEz3bXLgnh2_iIgHYakcei3MAJ86ZFOmPX7kVzFhCosvu9s2wjIQfavDCDLRQLVrJGQsaL1EZ2mryP_InZjaj5oDDacSSUX0VF_0A=972A81F5';
-const JIRA_PROJECT_KEY = 'KAN';
+const { JIRA_BASE_URL, JIRA_API_TOKEN, JIRA_PROJECT_KEY } = process.env;
 
 const headers = {
   'Authorization': `Basic ${Buffer.from(`swapnilmhatre671@gmail.com:${JIRA_API_TOKEN}`).toString('base64')}`,
@@ -17,7 +16,7 @@ const headers = {
 
 app.use(cors());
 
-app.get('/', async (req, res) => {
+app.get('/issues', async (req, res) => {
   try {
     const response = await axios.get(`${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`, { headers });
     const issues = response.data.issues.map(issue => ({
@@ -32,6 +31,10 @@ app.get('/', async (req, res) => {
     console.error('Error fetching issues:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+});
+
+app.get('/', (req, res) => {
+  res.send('API is running');
 });
 
 app.listen(PORT, () => {

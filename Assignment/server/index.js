@@ -16,7 +16,7 @@ const headers = {
 
 app.use(cors());
 
-app.get('/', async (req, res) => {
+app.get('/issues', async (req, res) => {
   try {
     const response = await axios.get(`${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`, { headers });
     const issues = response.data.issues.map(issue => ({

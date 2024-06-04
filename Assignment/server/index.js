@@ -7,10 +7,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
 const { JIRA_BASE_URL, JIRA_API_TOKEN, JIRA_PROJECT_KEY } = process.env;
 
 const headers = {
@@ -19,10 +15,6 @@ const headers = {
 };
 
 app.use(cors()); // Enable CORS for all routes
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
 
 app.get('/issues', async (req, res) => {
   try {
@@ -40,3 +32,9 @@ app.get('/issues', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+export default app; // Export app for Vercel

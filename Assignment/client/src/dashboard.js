@@ -16,7 +16,7 @@ const IssuesList = () => {
   useEffect(() => {
     const fetchIssues = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/issues');
+        const response = await axios.get('/issues');
         setIssues(response.data);
         setLoading(false);
       } catch (error) {

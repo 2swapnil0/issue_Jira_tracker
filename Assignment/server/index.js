@@ -19,10 +19,10 @@ app.use(cors()); // Enable CORS for all routes
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-app.get('/', (req, res) => {
-  res.send('API is running');
-});
-app.get('/issues', async (req, res) => {
+// app.get('/', (req, res) => {
+//   res.send('API is running');
+// });
+app.get('/', async (req, res) => {
   try {
     const response = await axios.get(`${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`, { headers });
     const issues = response.data.issues.map(issue => ({
@@ -35,7 +35,7 @@ app.get('/issues', async (req, res) => {
     res.json(issues);
   } catch (error) {
     console.error('Error fetching issues:', error.message);
-    // res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

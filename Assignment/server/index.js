@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.get('/issues', async (req, res) => {
   try {
-    const response = await axios.get(`${JIRA_BASE_URL}rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`, { headers });
+    const response = await axios.get(`${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`, { headers });
     const issues = response.data.issues.map(issue => ({
       key: issue.key,
       summary: issue.fields.summary,

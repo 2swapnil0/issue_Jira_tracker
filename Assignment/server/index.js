@@ -2,13 +2,15 @@ import express from 'express';
 import axios from 'axios';
 import cors from 'cors';
 
-
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-
+const JIRA_BASE_URL = process.env.JIRA_BASE_URL || 'https://swapnilmhatre.atlassian.net';
+const JIRA_API_TOKEN = process.env.JIRA_API_TOKEN || 'your_api_token_here';
+const JIRA_PROJECT_KEY = process.env.JIRA_PROJECT_KEY || 'KAN';
 
 const headers = {
-  'Authorization': `Basic ${Buffer.from(`swapnilmhatre671@gmail.com:ATATT3xFfGF04iBGDA1mZgqqN1WPm_3BCu83KsN2nCjOdNGa5Pf2aAESeZPd4zr-WaNbTAnlO9nNq5buTRr2pi-r6ehy2EXRlZ7pRVzyB_x9ngnU0fyJOzGpZwYCImcFDWi5oxudayMu8LBWYsH2LjPPW7OB87PDdYTL0nNU5GzSWOezlvx-fhM=2094F9BB`).toString('base64')}`,
+  'Authorization': `Basic ${Buffer.from(`swapnilmhatre671@gmail.com:${JIRA_API_TOKEN}`).toString('base64')}`,
   'Accept': 'application/json'
 };
 
@@ -20,7 +22,7 @@ app.get('/', (req, res) => {
 
 app.get('/issues', async (req, res) => {
   try {
-    const url = `https://swapnilmhatre.atlassian.net/rest/api/3/search?jql=project=KAN`;
+    const url = `${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`;
     console.log('Fetching issues from URL:', url);
     const response = await axios.get(url, { headers });
     const issues = response.data.issues.map(issue => ({
@@ -37,9 +39,8 @@ app.get('/issues', async (req, res) => {
   }
 });
 
-
-app.listen(5000, () => {
-  console.log(`Server is running on port 5000`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 export default app;

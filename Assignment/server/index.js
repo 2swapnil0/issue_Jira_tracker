@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.get('/issues', async (req, res) => {
   try {
-    const url = `${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`;
+    const url = `https://swapnilmhatre.atlassian.net/rest/api/3/search?jql=project=KAN`;
     console.log('Fetching issues from URL:', url);
     const response = await axios.get(url, { headers });
     const issues = response.data.issues.map(issue => ({

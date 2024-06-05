@@ -2,14 +2,20 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.js",
+      "src": "server/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.js"
+      "dest": "server/index.js"
     }
-  ]
+  ],
+  "env": {
+    "JIRA_BASE_URL": "https://swapnilmhatre.atlassian.net",
+    "JIRA_API_TOKEN": "ATATT3xFfGF0xo_zEB37Ygv4pvj-CRAtURWdESEw0II9jgetny8O38b3hN5OhB8CWQHdVnzNStOhm4zbzofP9MZEsE1lJYrx-8HMjt6BagiPePrrWQ3CRnTui43dnJsYaPxsIZC3dxVndKEpzwblNyeGg4beNhb2UEuwNbk50YzofC8HjdsG7rc=FD5ADE17",
+    "JIRA_PROJECT_KEY": "KAN",
+    "PORT": "8000"
+  }
 }

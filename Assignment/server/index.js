@@ -26,7 +26,9 @@ app.get('/', (req, res) => {
 
 app.get('/issues', async (req, res) => {
   try {
-    const response = await axios.get(`${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`, { headers });
+    const url = `${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`;
+    console.log('Fetching issues from URL:', url);
+    const response = await axios.get(url, { headers });
     const issues = response.data.issues.map(issue => ({
       key: issue.key,
       summary: issue.fields.summary,
@@ -40,6 +42,7 @@ app.get('/issues', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

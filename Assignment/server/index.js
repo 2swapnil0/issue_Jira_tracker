@@ -5,9 +5,11 @@ import cors from 'cors';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT
 
-const { JIRA_BASE_URL, JIRA_API_TOKEN, JIRA_PROJECT_KEY } = process.env;
+const JIRA_BASE_URL = process.env.JIRA_BASE_URL
+const JIRA_API_TOKEN = process.env.JIRA_API_TOKEN
+const JIRA_PROJECT_KEY =process.env.JIRA_PROJECT_KEY
 
 if (!JIRA_BASE_URL || !JIRA_API_TOKEN || !JIRA_PROJECT_KEY) {
   throw new Error('Missing required environment variables');

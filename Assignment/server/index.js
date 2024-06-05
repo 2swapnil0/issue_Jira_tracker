@@ -1,22 +1,14 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import axios from 'axios';
 import cors from 'cors';
 
-dotenv.config();
+
 const app = express();
-const PORT = process.env.PORT
 
-const JIRA_BASE_URL = process.env.JIRA_BASE_URL
-const JIRA_API_TOKEN = process.env.JIRA_API_TOKEN
-const JIRA_PROJECT_KEY =process.env.JIRA_PROJECT_KEY
 
-if (!JIRA_BASE_URL || !JIRA_API_TOKEN || !JIRA_PROJECT_KEY) {
-  throw new Error('Missing required environment variables');
-}
 
 const headers = {
-  'Authorization': `Basic ${Buffer.from(`swapnilmhatre671@gmail.com:${JIRA_API_TOKEN}`).toString('base64')}`,
+  'Authorization': `Basic ${Buffer.from(`swapnilmhatre671@gmail.com:ATATT3xFfGF04iBGDA1mZgqqN1WPm_3BCu83KsN2nCjOdNGa5Pf2aAESeZPd4zr-WaNbTAnlO9nNq5buTRr2pi-r6ehy2EXRlZ7pRVzyB_x9ngnU0fyJOzGpZwYCImcFDWi5oxudayMu8LBWYsH2LjPPW7OB87PDdYTL0nNU5GzSWOezlvx-fhM=2094F9BB`).toString('base64')}`,
   'Accept': 'application/json'
 };
 
@@ -46,8 +38,8 @@ app.get('/issues', async (req, res) => {
 });
 
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(5000, () => {
+  console.log(`Server is running on port 5000`);
 });
 
 export default app;

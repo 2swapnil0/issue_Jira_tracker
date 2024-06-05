@@ -5,6 +5,7 @@ import cors from 'cors';
 
 dotenv.config();
 const app = express();
+
 const PORT = process.env.PORT || 5000;
 
 const { JIRA_BASE_URL, JIRA_API_TOKEN, JIRA_PROJECT_KEY } = process.env;

@@ -6,14 +6,13 @@ import cors from 'cors';
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
-const JIRA_BASE_URL = process.env.JIRA_BASE_URL
-const JIRA_API_TOKEN = process.env.JIRA_API_TOKEN
-const JIRA_PROJECT_KEY = process.env.JIRA_PROJECT_KEY
 
-console.log("JIRA_BASE_URL:", JIRA_BASE_URL);
-console.log("JIRA_API_TOKEN:", JIRA_API_TOKEN);
-console.log("JIRA_PROJECT_KEY:", JIRA_PROJECT_KEY);
-console.log("PORT:", PORT);
+const { JIRA_BASE_URL, JIRA_API_TOKEN, JIRA_PROJECT_KEY } = process.env;
+
+if (!JIRA_BASE_URL || !JIRA_API_TOKEN || !JIRA_PROJECT_KEY) {
+  console.error('Missing required environment variables');
+  process.exit(1); // Exit if env variables are missing
+}
 
 const headers = {
   'Authorization': `Basic ${Buffer.from(`swapnilmhatre671@gmail.com:${JIRA_API_TOKEN}`).toString('base64')}`,
@@ -28,9 +27,7 @@ app.get('/', (req, res) => {
 
 app.get('/issues', async (req, res) => {
   try {
-    const url = `${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`;
-    console.log('Fetching issues from URL:', url);
-    const response = await axios.get(url, { headers });
+    const response = await axios.get(`${JIRA_BASE_URL}/rest/api/3/search?jql=project=${JIRA_PROJECT_KEY}`, { headers });
     const issues = response.data.issues.map(issue => ({
       key: issue.key,
       summary: issue.fields.summary,
@@ -45,8 +42,8 @@ app.get('/issues', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 export default app;

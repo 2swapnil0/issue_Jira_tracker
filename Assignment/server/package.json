@@ -5,12 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject",
-  "server": "node index.js"
-},
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+    
+  },
   "author": "swapnil mhatre",
   "license": "ISC",
   "dependencies": {
